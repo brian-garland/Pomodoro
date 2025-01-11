@@ -1,0 +1,108 @@
+:root {
+  --primary: #0D9488;
+  --primary-hover: #0F766E;
+  --break: #F97316;
+  --break-hover: #EA580C;
+  --background: #F0FDFA;
+  --surface: #FFFFFF;
+  --text: #1F2937;
+  --text-secondary: #6B7280;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+.container {
+  text-align: center;
+  background-color: var(--surface);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  width: 90%;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: var(--text);
+}
+
+.timer {
+  font-size: 5rem;
+  font-weight: 700;
+  margin: 2rem 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.controls button {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+#start {
+  background-color: var(--primary);
+  color: white;
+  grid-column: span 2;
+}
+
+#start:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+#reset {
+  background-color: #F3F4F6;
+  color: var(--text);
+}
+
+#reset:hover {
+  background-color: #E5E7EB;
+}
+
+#toggle-mode {
+  background-color: #F3F4F6;
+  color: var(--text);
+}
+
+#toggle-mode:hover {
+  background-color: #E5E7EB;
+}
+
+#toggle-mode.break-mode {
+  background-color: var(--break);
+  color: white;
+}
+
+#toggle-mode.break-mode:hover {
+  background-color: var(--break-hover);
+}
+
+.mode {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
