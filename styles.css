@@ -37,6 +37,12 @@ h1 {
   color: var(--text);
 }
 
+h1 .emoji {
+    margin-right: 0.5rem;
+    font-size: 1.8rem;
+    vertical-align: middle;
+}
+
 .timer {
   font-size: 5rem;
   font-weight: 700;
