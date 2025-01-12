@@ -1,4 +1,6 @@
-let timeLeft = 25 * 60; // 30 minutes in seconds
+let timeLeft;
+let workDuration = 25;
+let breakDuration = 5;
 let timerId = null;
 let isWorkTime = true;
 
@@ -8,6 +10,8 @@ const startButton = document.getElementById('start');
 const resetButton = document.getElementById('reset');
 const modeText = document.getElementById('mode-text');
 const toggleButton = document.getElementById('toggle-mode');
+const workTimeInput = document.getElementById('workTime');
+const breakTimeInput = document.getElementById('breakTime');
 
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
@@ -37,7 +41,7 @@ function startTimer() {
                 clearInterval(timerId);
                 timerId = null;
                 isWorkTime = !isWorkTime;
-                timeLeft = isWorkTime ? 25 * 60 : 5 * 60;
+                timeLeft = isWorkTime ? workDuration * 60 : breakDuration * 60;
                 modeText.textContent = isWorkTime ? 'Work Time' : 'Break Time';
                 updateDisplay();
                 alert(isWorkTime ? 'Break is over! Time to work!' : 'Work period is over! Take a break!');
@@ -56,7 +60,7 @@ function resetTimer() {
     clearInterval(timerId);
     timerId = null;
     isWorkTime = true;
-    timeLeft = 25 * 60;
+    timeLeft = workDuration * 60;
     modeText.textContent = 'Work Time';
     toggleButton.textContent = 'Switch to Break';
     updateDisplay();
@@ -69,11 +73,10 @@ function toggleMode() {
         return; // Don't allow mode switching while timer is running
     }
     isWorkTime = !isWorkTime;
-    timeLeft = isWorkTime ? 25 * 60 : 5 * 60;
+    timeLeft = isWorkTime ? workDuration * 60 : breakDuration * 60;
     modeText.textContent = isWorkTime ? 'Work Time' : 'Break Time';
     toggleButton.textContent = isWorkTime ? 'Switch to Break' : 'Switch to Work';
     
-    // Toggle the button classes
     if (isWorkTime) {
         toggleButton.classList.remove('break-mode');
         toggleButton.classList.add('work-mode');
@@ -85,6 +88,24 @@ function toggleMode() {
     updateDisplay();
 }
 
+workTimeInput.addEventListener('input', function() {
+    const value = parseInt(this.value) || 0;
+    workDuration = Math.max(0, value);
+    if (isWorkTime && timerId === null) {
+        timeLeft = workDuration * 60;
+        updateDisplay();
+    }
+});
+
+breakTimeInput.addEventListener('input', function() {
+    const value = parseInt(this.value) || 0;
+    breakDuration = Math.max(0, value);
+    if (!isWorkTime && timerId === null) {
+        timeLeft = breakDuration * 60;
+        updateDisplay();
+    }
+});
+
 startButton.addEventListener('click', startTimer);
 resetButton.addEventListener('click', resetTimer);
 toggleButton.addEventListener('click', toggleMode);
@@ -94,3 +115,13 @@ updateDisplay();
 
 // Add this after your existing event listeners to set initial state
 toggleButton.classList.add('work-mode'); // Set initial state to work mode 
+
+// Add this at the end of your file to initialize timeLeft
+timeLeft = workDuration * 60; 
+
+// At the bottom of the file, update initialization
+workTimeInput.value = workDuration;  // Set initial input field values
+breakTimeInput.value = breakDuration;
+timeLeft = workDuration * 60;  // Set initial timer value
+updateDisplay();  // Update the display
+toggleButton.classList.add('work-mode');  // Set initial state to work mode 
