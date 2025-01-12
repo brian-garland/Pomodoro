@@ -13,6 +13,40 @@ const toggleButton = document.getElementById('toggle-mode');
 const workTimeInput = document.getElementById('workTime');
 const breakTimeInput = document.getElementById('breakTime');
 
+// Todo list functionality
+const todoInputs = [
+    document.getElementById('todo1'),
+    document.getElementById('todo2'),
+    document.getElementById('todo3')
+];
+
+// Save todos to localStorage
+function saveTodos() {
+    const todos = todoInputs.map(input => input.value);
+    localStorage.setItem('pomodoro-todos', JSON.stringify(todos));
+}
+
+// Load todos from localStorage
+function loadTodos() {
+    const savedTodos = localStorage.getItem('pomodoro-todos');
+    if (savedTodos) {
+        const todos = JSON.parse(savedTodos);
+        todos.forEach((todo, index) => {
+            if (todoInputs[index]) {
+                todoInputs[index].value = todo;
+            }
+        });
+    }
+}
+
+// Add event listeners to todo inputs
+todoInputs.forEach(input => {
+    input.addEventListener('input', saveTodos);
+});
+
+// Load todos when the page loads
+loadTodos();
+
 function updateDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
